@@ -10,8 +10,8 @@ function InvitedUserJoin() {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  //   const { id } = useParams();
-  const id = 489;
+    const { id } = useParams();
+  // const id = 489;
   const [loadingText, setLoadingText] = useState(
     "Please wait, we will connect you to the video call..."
   );
