@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { reminderPopup } from "../../redux/slices/notificationSlice";
 
 const GlobalReminderModal = () => {
+   const TempStopApi = localStorage.getItem("anyoneJoin");
+  const doctorData = JSON.parse(localStorage.getItem("doctor-app"));
   const [showReminderModal, setShowReminderModal] = useState(false);
   const [reminderMessage, setReminderMessage] = useState("");
   const navigate = useNavigate();
@@ -18,10 +20,16 @@ const GlobalReminderModal = () => {
     return isoString.replace(/(\.\d{3})\d*(Z)/, "$1$2");
   };
 
-  useEffect(() => {
-    dispatch(reminderPopup());
-  }, [dispatch]);
-
+  // useEffect(() => {
+  //   dispatch(reminderPopup());
+  // }, [dispatch]);
+useEffect(() => {
+    if (TempStopApi !== "true" && TempStopApi !== null) {
+      dispatch(reminderPopup());
+    } else if (doctorData !== null && typeof doctorData !== "boolean") {
+      dispatch(reminderPopup());
+    }
+  }, [dispatch, TempStopApi]);
   // const reminderPopupData = {
   //   // Set this 2–3 minutes ahead of your current time in UTC
   //   appointment_datetime: "2025-06-16T06:45:00.000000Z", // 12:15 PM IST
@@ -184,3 +192,4 @@ const GlobalReminderModal = () => {
 };
 
 export default GlobalReminderModal;
+
